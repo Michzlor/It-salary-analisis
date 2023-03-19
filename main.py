@@ -16,7 +16,7 @@ def cut_prefix(a):
 
 #DONE#Avarge salary on each position in given city
 #temp df for given city + temp df for each position return [(psition_name,mean)]
-def avarge(df, city):
+def avarge_salary(df, city):
     temp_ = []
 
     for idx in df.index:
@@ -56,12 +56,12 @@ def top_employers(df, city):
     temp_ = df_city_sorted.head(3)
 
     return temp_
-#How much(%) highier are salaries in top 3 than avarge of given position
-def top3_employers(top3, avr):
+#How much(%) highier are salaries in top 3 than avarge_salary of given position
+def top3_comapred_to_avarge(top3, avarge):
     for idx in top3.index:
-        for idx1 in range(len(avr)):
-            if top3.loc[idx, "Job Title"] == avr[idx1][0]:
-                diff = top3.loc[idx, "Salary"]/ avr[idx1][1]
+        for idx1 in range(len(avarge)):
+            if top3.loc[idx, "Job Title"] == avarge[idx1][0]:
+                diff = top3.loc[idx, "Salary"]/ avarge[idx1][1]
                 diff = diff*100
                 print(round(diff, 2),"%")
             else:
@@ -112,14 +112,14 @@ data_frame["Currency"] = currency_series
 currency_list = []
 data_frame["Salary"] = pd.to_numeric(data_frame["Salary"])
 print("Avarge salary in Banglore")
-avr = (avarge(data_frame, "Bangalore"))
-print(avr[0])
+avarge = (avarge_salary(data_frame, "Bangalore"))
+print(avarge[0])
 print("----------------------------------------------------------------------")
 print("Top 3 paying companies in Banglore")
 top3 = top_employers(data_frame, "Bangalore")
 print(top3)
 print("----------------------------------------------------------------------")
 print("How much more are they paying")
-top3_employers(top3, avr[0])
+top3_comapred_to_avarge(top3, avarge[0])
 print("----------------------------------------------------------------------")
-recomedation(avr[2], avr[1])
+recomedation(avarge[2], avarge[1])
