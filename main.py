@@ -17,72 +17,71 @@ def cut_prefix(a):
 #DONE#Avarge salary on each position in given city
 #temp df for given city + temp df for each position return [(psition_name,mean)]
 def avarge_salary(df, city):
-    temp_ = []
-
-    for idx in df.index:
-        if df.loc[idx, "Location"] == city:
-            temp_.append(df.loc[idx])
-    df_city = pd.DataFrame(temp_, columns=df.columns)
-
-    job_titles = []
-    for idx in df_city.index:
-        if df_city.loc[idx, "Job Title"] in job_titles:
-            pass
-        else:
-            job_titles.append(df_city.loc[idx, "Job Title"])
-
     result = []
-    for job in job_titles:
-        temp_ = []
-        for idx in df_city.index:
-            if df_city.loc[idx, "Job Title"] == job:
-                temp_.append(df_city.loc[idx])
-            else:
-                continue
-        df_job = pd.DataFrame(temp_, columns=df.columns)
-        result.append((job, df_job.mean(numeric_only=True)["Salary"]))
-    temp_ = None
-    return result, job_titles, df_city
+    for location, city_db in data_frame.groupby("Location"):
+        if location == city:
+            for job, subdb in city_db.groupby("Job Title"):
+                subdb = subdb.mean(numeric_only=True)
+                result.append((job, round(subdb.loc["Salary"], 2)))
+            break
+        else:
+            continue
+
+    return result
 #DONE#List 3 best paying companys in givrn city
 #temp df for givrn city sort by salary print first 3 company names
 def top_employers(df, city):
-    temp_ = []
+    result = []
+    for location, city_df in df.groupby('Location'):
+        if location == city:
+            city_df = city_df.sort_values(['Salary'], ascending=False)
+            top3 = city_df.head(3)
 
-    for idx in df.index:
-        if df.loc[idx, "Location"] == city:
-            temp_.append(df.loc[idx])
-    df_city = pd.DataFrame(temp_, columns=df.columns)
-    df_city_sorted = df_city.sort_values(by="Salary", ascending=False)
-    temp_ = df_city_sorted.head(3)
+        else:
+            continue
+    for row in top3.itertuples():
+        result.append((row[1], row[2], row[5]))
+    return result
 
-    return temp_
 #How much(%) highier are salaries in top 3 than avarge_salary of given position
-def top3_comapred_to_avarge(top3, avarge):
-    for idx in top3.index:
-        for idx1 in range(len(avarge)):
-            if top3.loc[idx, "Job Title"] == avarge[idx1][0]:
-                diff = top3.loc[idx, "Salary"]/ avarge[idx1][1]
-                diff = diff*100
-                print(round(diff, 2),"%")
+def top3_comapred_to_avarge(df, city):
+    result = []
+    for location, city_df in df.groupby('Location'):
+        if location == city:
+            city_df = city_df.sort_values(['Salary'], ascending=False)
+            top3 = city_df.head(3)
+
+        else:
+            continue
+
+    for row in top3.itertuples():
+        for job, subdb in city_df.groupby("Job Title"):
+
+            if row[2] == job:
+                subdb = subdb.mean(numeric_only=True)
+                diff = ((float(row[5]) / float(subdb.loc["Salary"])) * 100)
+                result.append((row[1], job, str(round(diff, 2))+"%"))
+
             else:
                 continue
+    return result
+
 #Recomend best paying positon in each company return [(Company Name, Job Title)]
-def recomedation(df, job_titles):
-    company_list = []
+def recomedation(df, city):
+
     result = []
-    for idx in df.index:
-        if df.loc[idx, "Company Name"] in company_list:
-            pass
+    for location, city_df in df.groupby('Location'):
+        if location == city:
+            for company, subdf in city_df.groupby('Company Name'):
+                subdf = subdf.sort_values(['Salary'], ascending=False)
+                temp = subdf.iloc[0]
+                result.append((temp.loc["Company Name"], temp.loc["Job Title"],temp.loc["Salary"]))
+            break
         else:
-            company_list.append(df.loc[idx, "Company Name"])
-    for company in company_list:
-        temp_ = []
-        for job in job_titles:
-            job_max = 0
-            for idx in df.index:
-                if df.loc[idx, "Salary"] > job_max and df_city.loc[idx, "Job Title"] == job:
-                    job_max = df.loc[idx, "Salary"]
-            temp_.append(job, job_max)
+            continue
+    return result
+
+
 
 for idx in data_frame.index:
     try:
@@ -107,19 +106,20 @@ for idx in data_frame.index:
         print(e)
         data_frame.drop(idx, inplace=True)
 
-currency_series = pd.Series(currency_list)
-data_frame["Currency"] = currency_series
-currency_list = []
+
+
 data_frame["Salary"] = pd.to_numeric(data_frame["Salary"])
-print("Avarge salary in Banglore")
-avarge = (avarge_salary(data_frame, "Bangalore"))
-print(avarge[0])
-print("----------------------------------------------------------------------")
-print("Top 3 paying companies in Banglore")
-top3 = top_employers(data_frame, "Bangalore")
-print(top3)
-print("----------------------------------------------------------------------")
-print("How much more are they paying")
-top3_comapred_to_avarge(top3, avarge[0])
-print("----------------------------------------------------------------------")
-recomedation(avarge[2], avarge[1])
+
+# print("Avarge")
+# print(avarge_salary(data_frame, "Hyderabad"))
+# print("----------------------------------------------------------------------")
+# print("Top 3")
+# print(top_employers(data_frame, "Hyderabad"))
+# print("----------------------------------------------------------------------")
+# print("Top 3 vs avarge")
+# print(top3_comapred_to_avarge(data_frame, "Hyderabad"))
+# print("----------------------------------------------------------------------")
+# print("Recomendation")
+# print(recomedation(data_frame, "Hyderabad"))
+
+

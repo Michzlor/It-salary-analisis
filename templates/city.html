@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{city}}</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            <form action="/" id="cityform" method="POST">
+                <label for="city">Choose a city:</label>
+                <select name="city" id="city" form="cityform">
+                    {% for city in city_list %}
+                        <option value = "{{ city }}">{{ city }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit">
+            </form>
+        </td>
+        <td>
+            <h1>{{city}}</h1>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Avarge yeraly salary</th>
+        <th>Top 3 employers</th>
+        <th>Top 3 to avarge</th>
+        <th>Recomnded position in each company</th>
+    </tr>
+    <tr>
+        <td>
+            <table>
+            {% for i in result[0]%}
+                <tr>
+                {% for k in range(3)%}
+                    <td>{{i[k]}}</td>
+                {% endfor%}
+                </tr>
+            {% endfor%}
+            </table>
+        </td>
+        <td>
+            <table>
+            {% for i in result[1]%}
+                <tr>
+                {% for k in range(3)%}
+                    <td>{{i[k]}}</td>
+                {% endfor%}
+                </tr>
+            {% endfor%}
+            </table>
+        </td>
+        <td>
+            <table>
+            {% for i in result[2]%}
+                <tr>
+                {% for k in range(3)%}
+                    <td>{{i[k]}}</td>
+                {% endfor%}
+                </tr>
+            {% endfor%}
+            </table>
+        </td>
+        <td>
+            <table>
+            {% for i in result[3]%}
+                <tr>
+                {% for k in range(3)%}
+                    <td>{{i[k]}}</td>
+                {% endfor%}
+                </tr>
+            {% endfor%}
+            </table>
+        </td>
+    </tr>
+
+</table>
+</body>
+</html>
