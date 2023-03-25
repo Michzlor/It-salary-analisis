@@ -40,7 +40,13 @@ def top_employers(df, city):
         else:
             continue
     for row in top3.itertuples():
-        result.append((row[1], row[2], row[5]))
+        for job, subdb in city_df.groupby("Job Title"):
+
+            if row[2] == job:
+                subdb = subdb.mean(numeric_only=True)
+                diff = ((float(row[5]) / float(subdb.loc["Salary"])) * 100)
+                result.append((row[1], job, row[5], str(round(diff, 2))+"%"))
+
     return result
 
 #How much(%) highier are salaries in top 3 than avarge_salary of given position
