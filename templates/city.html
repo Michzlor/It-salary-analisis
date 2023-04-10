@@ -4,32 +4,32 @@
     <meta charset="UTF-8">
     <title>{{city}}</title>
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
 </head>
 <body>
 <div class="columns">
     <div class="column col-4 bg-secondary">
-        <div class = "hero bg-defult">
-        <form action="/" id="cityform" method="POST" class="form-group">
-            <label for="city" class="form-label text-center"><b>Choose a city:</b></label>
-            <select name="city" id="city" form="cityform" class="form-select bg-defult">
-                {% for city in city_list %}
-                <option value = "{{ city }}">{{ city }}</option>
-                {% endfor %}
-            </select>
-            <input class="btn btn-primary input-group-btn btn-block" type="submit">
-        </form>
+        <div class="hero bg-defult">
+            <form action="/" id="cityform" method="POST" class="form-group">
+                <label for="city" class="form-label text-center"><b>Choose a city:</b></label>
+                <select name="city" id="city" form="cityform" class="form-select bg-defult">
+                    {% for city in city_list %}
+                    <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
+                </select>
+                <input class="btn btn-primary input-group-btn btn-block" type="submit">
+            </form>
 
         </div>
     </div>
 
     <div class="column col-8">
         <div class="hero bg-dark text-center">
-        <h1>{{city}}</h1>
+            <h1>{{city}}</h1>
             <h3>Top employers</h3>
 
-            <table class = "table">
+            <table class="table">
                 <thead>
                 <tr>
                     <th>Company Name</th>
@@ -39,13 +39,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                    {% for i in result[1]%}
-                        <tr>
-                        {% for k in range(4)%}
-                            <td>{{i[k]}}</td>
-                        {% endfor%}
-                        </tr>
+                {% for i in result[1]%}
+                <tr>
+                    {% for k in range(4)%}
+                    <td>{{i[k]}}</td>
                     {% endfor%}
+                </tr>
+                {% endfor%}
                 </tbody>
             </table>
 
@@ -61,42 +61,42 @@
     <div class="divider"></div>
     <div class="columns">
         <div class="column col-4">
-            <table class = "table table-striped">
-                   <thead>
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th>Job Title</th>
                     <th>Anuall Salary(₹)</th>
                 </tr>
                 </thead>
-            {% for i in result[0]%}
+                {% for i in result[0]%}
                 <tr>
-                {% for k in range(3)%}
+                    {% for k in range(3)%}
                     <td>{{i[k]}}</td>
-                {% endfor%}
+                    {% endfor%}
                 </tr>
-            {% endfor%}
+                {% endfor%}
             </table>
         </div>
         <div class="column col-8">
-            <table class = "table table-striped">
-                 <thead>
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th>Company Name</th>
                     <th>Job Title</th>
                     <th>Anuall Salary(₹)</th>
                 </tr>
                 </thead>
-            {% for i in result[3]%}
+                {% for i in result[3]%}
                 <tr>
-                {% for k in range(3)%}
+                    {% for k in range(3)%}
                     <td>{{i[k]}}</td>
-                {% endfor%}
+                    {% endfor%}
                 </tr>
-            {% endfor%}
+                {% endfor%}
             </table>
         </div>
     </div>
 
- </div>
+</div>
 </body>
 </html>

@@ -22,7 +22,7 @@ def avarge_salary(df, city):
         if location == city:
             for job, subdb in city_db.groupby("Job Title"):
                 subdb = subdb.mean(numeric_only=True)
-                result.append((job, round(subdb.loc["Salary"], 2)))
+                result.append((job, int(subdb.loc["Salary"])))
             break
         else:
             continue
@@ -45,7 +45,7 @@ def top_employers(df, city):
             if row[2] == job:
                 subdb = subdb.mean(numeric_only=True)
                 diff = ((float(row[5]) / float(subdb.loc["Salary"])) * 100)
-                result.append((row[1], job, row[5], str(round(diff, 2))+"%"))
+                result.append((row[1], job, row[5], str(int(diff))+"%"))
 
     return result
 
