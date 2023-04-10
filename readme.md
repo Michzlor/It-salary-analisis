@@ -1,4 +1,4 @@
-## Analiza zarobków
+# Analiza zarobków
 ### 1.Opis
 Porównanie zarobków na różnych stanowiskach branży it w różnych miastach w Indiach.
 
@@ -11,7 +11,7 @@ Aplikacja zwraca:
 - 3 Firmy które płacą najwięcej w danym mieście
 - O ile procent powyżej średniej wynoszą zarobki w tych firmach w porównaniu do średnich zarobków na danym stanowisku
 - Rekomendacja jakie stanowisko w której firmie jest najbardziej opłacalne 
-### 2.Instalacja
+## 2.Instalacja
 #### Wymagania wstępne:
 -Python w wersji 3.9.13 lub wyższej
 #### Instalacja manualna:
