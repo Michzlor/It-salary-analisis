@@ -24,7 +24,7 @@ W terminalu(cmd) wykonać polecenie
 
 Stworzy ono katalog analiza-zarobkow zawirający pliki aplikacji w aktualnej lokacji(Domyślnie: C/Users/Nazwa użytkownika)
 
-### 3.Uruchomienie
+## 3.Uruchomienie
 
 1. Towrzenie środowiska wirtualnego dla aplikacji
 W terminalu(cmd) znajdując się w katalogu aplikacji wykonać polecenie
