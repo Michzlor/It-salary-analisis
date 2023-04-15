@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{querry}}</title>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+</head>
+<body>
+<div class="container" id="content-container">
+    <header class="navbar bg-secondary">
+        <section class="navbar-section">
+            <a href="/" class="btn btn-primary" role="button">Home</a>
+        </section>
+    </header>
+    <div>
+        <h1 class="text-center">{{querry}} Summary</h1>
+        <table class="table">
+            {% for i in content%}
+            <tr>
+                {% for k in range(6)%}
+                <td>{{i[k]}}</td>
+                {% endfor%}
+            </tr>
+            {% endfor%}
+        </table>
+    </div>
+</div>
+</body>
+</html>
