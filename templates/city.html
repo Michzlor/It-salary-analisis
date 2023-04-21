@@ -12,24 +12,43 @@
             src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
-<div class="columns">
+<header class="navbar ">
+    <section class="navbar-section">
+        <a class="btn bg-secondary btn-block" href="\">Home</a>
 
-    <div class="column col-4 bg-secondary">
-        <div class="hero bg-defult">
-            <form action="/" id="cityform" method="POST" class="form-group">
-                <label for="city" class="form-label text-center"><b>Choose a city:</b></label>
-                <select name="city" id="city" form="cityform" class="form-select bg-defult">
-                    {% for city in city_list %}
-                    <option value="{{ city }}">{{ city }}</option>
-                    {% endfor %}
-                </select>
-                <input class="btn btn-primary input-group-btn btn-block" type="submit">
-            </form>
 
+    </section>
+
+    <section class="navbar-section">
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+        {% for message in messages %}
+        <b><a style="font-size: 25px" href="/" class="btn btn-error" aria-label="Close" role="button">{{ message
+            }}<i class="icon icon-cross "></i></a></b>
+
+        {% endfor %}
+
+        {% endif %}
+        {% endwith %}
+        {% block body1 %}{% endblock %}
+    </section>
+
+    <section class="navbar-section">
+        <div class="col-12 dropdown"><a class="btn bg-secondary btn-block dropdown-toggle" tabindex="0">City List <i
+                class="icon icon-caret"></i></a>
+            <ul class="menu col-12 bg-secondary">
+                {% for city in city_list %}
+                <li class="menu-item"><a class="btn btn-block" href="\{{city}}">{{city}}</a></li>
+                {% endfor %}
+            </ul>
         </div>
-    </div>
-
-    <div class="column col-8">
+    </section>
+</header>
+<div class="columns">
+    <div class="column col-1 "></div>
+    <div class="column col-4 ">
         <div class="bg-dark text-center">
             <h1>{{city}}</h1>
             <h3>Top employers</h3>
@@ -47,7 +66,7 @@
                 {% for i in result[1]%}
                 <tr>
                     {% for k in range(4)%}
-                    <td>{{i[k]}}</td>
+                    <td><b>{{i[k]}}</b></td>
                     {% endfor%}
                 </tr>
                 {% endfor%}
@@ -55,66 +74,63 @@
             </table>
 
         </div>
-    </div>
-</div>
-<div class="divider"></div>
-<div class="container">
-    <div class="columns">
-        <div class="column col-4 text-center bg-secondary"><b>Avarge annual salary per positon</b></div>
-        <div class="column col-8 text-center bg-secondary"><b>Recomnded position in each company</b></div>
-    </div>
-    <div class="divider"></div>
-    <div class="columns">
-        <div class="column col-4">
-            <table id="avarge salary" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Anuall Salary(₹)</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for i in result[0]%}
-                <tr>
-                    {% for k in range(1)%}
-                    <td><a href="\summaryJ\{{i[k]}}\{{city}}"> {{i[k]}}</a>
-                    </td>
-                    <td>{{i[k+1]}}</td>
-                    {% endfor%}
-                </tr>
+        <h3 class="text-center"><b>Avarge annual salary per positon</b></h3>
+        <table id="avarge-salary" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Anuall Salary(₹)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in result[0]%}
+            <tr>
+                {% for k in range(1)%}
+                <td><a href="\summaryJ\{{i[k]}}\{{city}}"> {{i[k]}}</a>
+                </td>
+                <td>{{i[k+1]}}</td>
                 {% endfor%}
-                </tbody>
-            </table>
-        </div>
-        <div class="column col-8">
-            <table id="example" class="table table-striped display" style="width:100%">
-                <thead>
-                <tr>
-                    <th>Company Name</th>
-                    <th>Job Title</th>
-                    <th>Anuall Salary(₹)</th>
-                </tr>
-                </thead>
-                {% for i in result[3]%}
-                <tr>
-                    {% for k in range(1)%}
-                    <td><a href="\summaryC\{{i[k]}}\{{city}}"> {{i[k]}}</a></td>
-                    <td>{{i[k+1]}}</td>
-                    <td>{{i[k+2]}}</td>
-                    {% endfor%}
-                </tr>
-                {% endfor%}
-            </table>
-        </div>
+            </tr>
+            {% endfor%}
+            </tbody>
+        </table>
+
     </div>
 
+    <div class="column col-6">
+        <h3 class="text-center"><b>Recomnded position in each company</b></h3>
+        <table id="example" class="table display" style="width:100%">
+            <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Job Title</th>
+                <th>Anuall Salary(₹)</th>
+            </tr>
+            </thead>
+            {% for i in result[3]%}
+            <tr>
+                {% for k in range(1)%}
+                <td><a href="\summaryC\{{i[k]}}\{{city}}"> {{i[k]}}</a></td>
+                <td>{{i[k+1]}}</td>
+                <td>{{i[k+2]}}</td>
+                {% endfor%}
+            </tr>
+            {% endfor%}
+        </table>
+    </div>
+    <div class="column col-1"></div>
 </div>
 <script>
+
 $(document).ready(function () {
     $('#example').DataTable({
     lengthChange: false,
+    pageLength: 17,
+
     });
+
 });
+
 
 </script>
 </body>

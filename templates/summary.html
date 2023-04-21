@@ -8,15 +8,54 @@
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
 </head>
 <body>
+<header class="navbar">
+    <section class="navbar-section">
+        <a href="/{{city}}" class="btn btn-primary btn-block" role="button"><i class="icon icon-arrow-left"></i>
+            Back</a>
+        <a class="btn btn-primary btn-block" href="\">Home</a>
+
+
+    </section>
+
+    <section class="navbar-section">
+
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+        {% for message in messages %}
+        <b><a style="font-size: 25px" href="/" class="btn btn-error" aria-label="Close" role="button">{{ message
+            }}<i class="icon icon-cross "></i></a></b>
+
+        {% endfor %}
+
+        {% endif %}
+        {% endwith %}
+        {% block body1 %}{% endblock %}
+    </section>
+    <section class="navbar-section">
+        <div class="col-12 dropdown"><a class="btn bg-secondary btn-block dropdown-toggle" tabindex="0">City List <i
+                class="icon icon-caret"></i></a>
+            <ul class="menu col-12 bg-secondary">
+                {% for city in city_list %}
+                <li class="menu-item"><a class="btn btn-block" href="\{{city}}">{{city}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+</header>
 <div class="container" id="content-container">
-    <header class="navbar bg-secondary">
-        <section class="navbar-section">
-            <a href="/" class="btn btn-primary" role="button">Home</a>
-        </section>
-    </header>
     <div>
         <h1 class="text-center">{{querry}} Summary</h1>
         <table class="table">
+            <thead>
+            <tr>
+                <td></td>
+                {% for i in cols%}
+                <td>{{i}}</td>
+                {% endfor%}
+            </tr>
+            </thead>
             {% for i in content%}
             <tr>
                 {% for k in range(6)%}

@@ -1,6 +1,5 @@
 import pandas as pd
 num = ["0", "1", "2", "3", "4", "5", "6", "7", "8" ,"9"]
-drop_count = 0
 data_frame = pd.read_csv("Salary_Dataset.csv")
 currency_list = []
 
@@ -88,33 +87,33 @@ def recomedation(df, city):
     return result
 
 
+def clean_data(data_frame):
+    drop_count = 0
+    for idx in data_frame.index:
+        try:
+            cell = cut_prefix(data_frame.loc[idx, "Salary"])
 
-for idx in data_frame.index:
-    try:
-        cell = cut_prefix(data_frame.loc[idx, "Salary"])
+            val = cell[0].split(sep="/")[0]
+            val = "".join(val.split(sep=","))
 
-        val = cell[0].split(sep="/")[0]
-        val = "".join(val.split(sep=","))
+            if cell[0].split(sep="/")[1] == "yr" :
+                pass
+                data_frame.loc[idx, "Salary"] = int(val)
+                currency_list.append(cell[1])
+            elif cell[0].split(sep="/")[1] == "mo" :
+                pass
+                data_frame.loc[idx, "Salary"] = int(val) * 12
+                currency_list.append(cell[1])
 
-        if cell[0].split(sep="/")[1] == "yr" :
-            pass
-            data_frame.loc[idx, "Salary"] = int(val)
-            currency_list.append(cell[1])
-        elif cell[0].split(sep="/")[1] == "mo" :
-            pass
-            data_frame.loc[idx, "Salary"] = int(val) * 12
-            currency_list.append(cell[1])
-
-        else:
-            drop_count += 1
+            else:
+                drop_count += 1
+                data_frame.drop(idx, inplace=True)
+        except Exception as e:
+            print(e)
             data_frame.drop(idx, inplace=True)
-    except Exception as e:
-        print(e)
-        data_frame.drop(idx, inplace=True)
 
-
-
-data_frame["Salary"] = pd.to_numeric(data_frame["Salary"])
+    data_frame["Salary"] = pd.to_numeric(data_frame["Salary"])
+    return data_frame
 
 # print("Avarge")
 # print(avarge_salary(data_frame, "Hyderabad"))
