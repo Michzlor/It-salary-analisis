@@ -14,9 +14,9 @@
 <body>
 <header class="navbar ">
     <section class="navbar-section">
-        <a class="btn bg-secondary btn-block" href="\">Home</a>
-
-
+        <div class="columns col-12 col-gapless">
+            <div class="column col-5 col-gapless"><a class="btn btn-primary btn-block" href="\">Home</a></div>
+        </div>
     </section>
 
     <section class="navbar-section">
@@ -48,7 +48,7 @@
 </header>
 <div class="columns">
     <div class="column col-1 "></div>
-    <div class="column col-4 ">
+    <div class="column col-5 ">
         <div class="bg-dark text-center">
             <h1>{{city}}</h1>
             <h3>Top employers</h3>
@@ -58,7 +58,7 @@
                 <tr>
                     <th>Company Name</th>
                     <th>Job Title</th>
-                    <th>Anuall Salary(₹)</th>
+                    <th>Anuall Salary({{currency}})</th>
                     <th>% of Salary to avarge</th>
                 </tr>
                 </thead>
@@ -79,7 +79,7 @@
             <thead>
             <tr>
                 <th>Job Title</th>
-                <th>Anuall Salary(₹)</th>
+                <th>Anuall Salary({{currency}})</th>
             </tr>
             </thead>
             <tbody>
@@ -97,14 +97,14 @@
 
     </div>
 
-    <div class="column col-6">
+    <div class="column col-5">
         <h3 class="text-center"><b>Recomnded position in each company</b></h3>
         <table id="example" class="table display" style="width:100%">
             <thead>
             <tr>
                 <th>Company Name</th>
                 <th>Job Title</th>
-                <th>Anuall Salary(₹)</th>
+                <th>Anuall Salary({{currency}})</th>
             </tr>
             </thead>
             {% for i in result[3]%}
@@ -130,6 +130,7 @@ $(document).ready(function () {
     });
 
 });
+
 
 
 </script>

@@ -1,7 +1,9 @@
 import pandas as pd
-num = ["0", "1", "2", "3", "4", "5", "6", "7", "8" ,"9"]
+
+num = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 data_frame = pd.read_csv("Salary_Dataset.csv")
 currency_list = []
+
 
 def cut_prefix(a):
     prefix = ""
@@ -10,11 +12,12 @@ def cut_prefix(a):
             break
         else:
             prefix += a[i]
-    a = (a.replace(prefix,""))
+    a = (a.replace(prefix, ""))
     return a, prefix
 
-#DONE#Avarge salary on each position in given city
-#temp df for given city + temp df for each position return [(psition_name,mean)]
+
+# DONE#Avarge salary on each position in given city
+# temp df for given city + temp df for each position return [(psition_name,mean)]
 def avarge_salary(df, city):
     result = []
     for location, city_db in data_frame.groupby("Location"):
@@ -27,8 +30,10 @@ def avarge_salary(df, city):
             continue
 
     return result
-#DONE#List 3 best paying companys in givrn city
-#temp df for givrn city sort by salary print first 3 company names
+
+
+# DONE#List 3 best paying companys in givrn city
+# temp df for givrn city sort by salary print first 3 company names
 def top_employers(df, city):
     result = []
     for location, city_df in df.groupby('Location'):
@@ -44,11 +49,12 @@ def top_employers(df, city):
             if row[2] == job:
                 subdb = subdb.mean(numeric_only=True)
                 diff = ((float(row[5]) / float(subdb.loc["Salary"])) * 100)
-                result.append((row[1], job, row[5], str(int(diff))+"%"))
+                result.append((row[1], job, row[5], str(int(diff)) + "%"))
 
     return result
 
-#How much(%) highier are salaries in top 3 than avarge_salary of given position
+
+# How much(%) highier are salaries in top 3 than avarge_salary of given position
 def top3_comapred_to_avarge(df, city):
     result = []
     for location, city_df in df.groupby('Location'):
@@ -65,22 +71,22 @@ def top3_comapred_to_avarge(df, city):
             if row[2] == job:
                 subdb = subdb.mean(numeric_only=True)
                 diff = ((float(row[5]) / float(subdb.loc["Salary"])) * 100)
-                result.append((row[1], job, str(round(diff, 2))+"%"))
+                result.append((row[1], job, str(round(diff, 2)) + "%"))
 
             else:
                 continue
     return result
 
-#Recomend best paying positon in each company return [(Company Name, Job Title)]
-def recomedation(df, city):
 
+# Recomend best paying positon in each company return [(Company Name, Job Title)]
+def recomedation(df, city):
     result = []
     for location, city_df in df.groupby('Location'):
         if location == city:
             for company, subdf in city_df.groupby('Company Name'):
                 subdf = subdf.sort_values(['Salary'], ascending=False)
                 temp = subdf.iloc[0]
-                result.append((temp.loc["Company Name"], temp.loc["Job Title"],temp.loc["Salary"]))
+                result.append((temp.loc["Company Name"], temp.loc["Job Title"], temp.loc["Salary"]))
             break
         else:
             continue
@@ -96,12 +102,10 @@ def clean_data(data_frame):
             val = cell[0].split(sep="/")[0]
             val = "".join(val.split(sep=","))
 
-            if cell[0].split(sep="/")[1] == "yr" :
-                pass
+            if cell[0].split(sep="/")[1] == "yr":
                 data_frame.loc[idx, "Salary"] = int(val)
                 currency_list.append(cell[1])
-            elif cell[0].split(sep="/")[1] == "mo" :
-                pass
+            elif cell[0].split(sep="/")[1] == "mo":
                 data_frame.loc[idx, "Salary"] = int(val) * 12
                 currency_list.append(cell[1])
 
@@ -126,5 +130,3 @@ def clean_data(data_frame):
 # print("----------------------------------------------------------------------")
 # print("Recomendation")
 # print(recomedation(data_frame, "Hyderabad"))
-
-

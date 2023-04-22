@@ -10,7 +10,24 @@
 <body>
 <header class="navbar">
     <section class="navbar-section">
-        <a class="btn btn-primary btn-block" href="\">Home</a>
+        <div class="columns col-12 col-gapless">
+            <div class="column col-5 col-gapless"><a class="btn btn-primary btn-block" href="\">Home</a></div>
+            <div class="divider-vert"></div>
+            <div class="column col-6 col-gapless">
+                <div class="input-group">
+                    <form action="/" id="currencyform" method="POST" class="form-group">
+                        <label>Currency :</label>
+                        <select name="currency" id="currency" form="currencyform" class="form-select bg-defult">
+                            {% for currency in currency_list %}
+                            <option value="{{ currency }}">{{ currency }}</option>
+                            {% endfor %}
+                        </select>
+                        <input class="btn btn-primary input-group-btn" type="submit">
+                    </form>
+
+                </div>
+            </div>
+        </div>
 
 
     </section>
@@ -45,12 +62,13 @@
         </div>
     </section>
 </header>
+
 <div class="empty" style="min-height:80%">
     <div class="empty-icon">
         <i class="icon icon-location icon-3x"></i>
     </div>
     <p class="empty-title h5">Porównanie zarobków na różnych stanowiskach branży it w różnych miastach w Indiach</p>
-    <p class="empty-subtitle">Click the button to start a conversation.</p>
+    <p class="empty-subtitle"></p>
     <div class="empty-action">
         <div class="col-12 dropdown"><a class="btn bg-secondary btn-block dropdown-toggle" tabindex="0">City List <i
                 class="icon icon-caret"></i></a>
