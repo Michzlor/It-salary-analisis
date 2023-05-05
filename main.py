@@ -15,7 +15,13 @@ def cut_prefix(a):
     a = (a.replace(prefix, ""))
     return a, prefix
 
-
+def currency_chek(inp):
+    if inp == "₹":
+        return "INR"
+    elif inp == "£":
+        return "USD"
+    elif inp == "$":
+        return "GBP"
 # DONE#Avarge salary on each position in given city
 # temp df for given city + temp df for each position return [(psition_name,mean)]
 def avarge_salary(df, city):
@@ -104,21 +110,32 @@ def clean_data(data_frame):
 
             if cell[0].split(sep="/")[1] == "yr":
                 data_frame.loc[idx, "Salary"] = int(val)
-                currency_list.append(cell[1])
+                currency_list.append(currency_chek(cell[1]))
             elif cell[0].split(sep="/")[1] == "mo":
                 data_frame.loc[idx, "Salary"] = int(val) * 12
-                currency_list.append(cell[1])
+                currency_list.append(currency_chek(cell[1]))
 
             else:
+                currency_list.append(currency_chek(cell[1]))
                 drop_count += 1
                 data_frame.drop(idx, inplace=True)
         except Exception as e:
             print(e)
             data_frame.drop(idx, inplace=True)
-
+    list_set = set(currency_list)
+    print(list_set)
     data_frame["Salary"] = pd.to_numeric(data_frame["Salary"])
-    return data_frame
+    currency_series = pd.Series(currency_list)
+    data_frame["Currency"] = currency_series
 
+    return data_frame
+# data_frame = clean_data(data_frame)
+#
+# print(data_frame)
+#
+# print(len(currency_list))
+#
+# print(max(set(currency_list)))
 # print("Avarge")
 # print(avarge_salary(data_frame, "Hyderabad"))
 # print("----------------------------------------------------------------------")

@@ -9,22 +9,49 @@ import requests
 import main
 import re
 
+def currency_exchenge(current_currency, currency_to_exchenge_to, df):
+    if current_currency == currency_to_exchenge_to:
+        return currency_to_exchenge_to
+    else:
+        for idx in df.index:
+            val = df.loc[idx, "Salary"]
+            if current_currency == "PLN":
+                df.loc[idx, "Salary"] = round(val / exchenge_rates[currency_to_exchenge_to], 0)
+            elif currency_to_exchenge_to == "PLN":
+                df.loc[idx, "Salary"] = round(val * exchenge_rates[current_currency], 0)
+
+
+            else:
+                temp = val * exchenge_rates[current_currency]
+                df.loc[idx, "Salary"] = round(temp / exchenge_rates[currency_to_exchenge_to], 0)
+        return currency_to_exchenge_to
+def normaliize_currency(df):
+    for idx in df.index:
+        if df.loc[idx, "Currency"] != current_currency[0]:
+            val = df.loc[idx, "Salary"]
+            df.loc[idx, 'Salary'] = round(val / exchenge_rates[df.loc[idx, "Currency"]])
+            df.loc[idx, "Currency"] = current_currency[0]
+
+
 city_list = main.data_frame.Location.unique().tolist()
-current_currency = ["INR"]
+
 result = []
 
 app = Flask(__name__)
 app.secret_key = "blah"
 if __name__ == 'app':
     main.clean_data(main.data_frame)
+    current_currency = [main.data_frame.Currency.mode()[0]]
     content = json.loads(requests.get(url="https://api.nbp.pl/api/exchangerates/tables/a/?format=json").text)
+    with open("rates.json", "w") as f:
+        json.dump(content, f , indent=3)
     exchenge_rates = {"INR": content[0]['rates'][29]['mid'], "USD": content[0]['rates'][1]['mid'],
-                      "EUR": content[0]['rates'][7]['mid']}
+                      "EUR": content[0]['rates'][7]['mid'], "GBP": content[0]['rates'][10]['mid']}
     currency_list = ["PLN"]
     for k in exchenge_rates.keys():
         currency_list.append(k)
-
-
+    normaliize_currency(main.data_frame)
+print(main.data_frame.Currency.unique().tolist())
 @app.route('/', methods=['POST', 'GET'])
 def index():
     """strona startowa"""
@@ -85,19 +112,5 @@ def summaryC(querry, city):
     return render_template("summary.html", querry=querry, content=out, cols=cols, city=city, city_list=city_list)
 
 
-def currency_exchenge(current_currency, currency_to_exchenge_to, df):
-    if current_currency == currency_to_exchenge_to:
-        return currency_to_exchenge_to
-    else:
-        for idx in df.index:
-            val = df.loc[idx, "Salary"]
-            if current_currency == "PLN":
-                df.loc[idx, "Salary"] = round(val / exchenge_rates[currency_to_exchenge_to], 0)
-            elif currency_to_exchenge_to == "PLN":
-                df.loc[idx, "Salary"] = round(val * exchenge_rates[current_currency], 0)
 
 
-            else:
-                temp = val * exchenge_rates[current_currency]
-                df.loc[idx, "Salary"] = round(temp / exchenge_rates[currency_to_exchenge_to], 0)
-        return currency_to_exchenge_to
