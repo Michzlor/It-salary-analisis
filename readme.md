@@ -1,38 +1,38 @@
-# Analiza zarobków
-### 1.Opis
-Porównanie zarobków na różnych stanowiskach branży it w różnych miastach w Indiach.
+# It salary analisis
+[a link](https://github.com/michzlor/It-salary-analisis/readmePL.md)
 
-Aplikacja używa bazy danych z tabeli:
+### 1.Summary
+Comparison of annual salaries on various IT positions in some major in India
+
+Dataset used for the app:
 https://www.kaggle.com/iamsouravbanerjee/analytics-industry-salaries-2022-india
-
-Użytkownik wybiera miasto - Bangalore, Pune, Hyderabad, New Delhi, Mumbai
+User picks a city - Bangalore, Pune, Hyderabad, New Delhi, Mumbai
+App returns:
 Aplikacja zwraca:
-- Średnie roczne zarobki na każdym z dostępnych stanowisk w wybranym mieście
-- 3 Firmy które płacą najwięcej w danym mieście
-- O ile procent powyżej średniej wynoszą zarobki w tych firmach w porównaniu do średnich zarobków na danym stanowisku
-- Rekomendacja jakie stanowisko w której firmie jest najbardziej opłacalne 
-## 2.Instalacja
-#### Wymagania wstępne:
--Python w wersji 3.9.13 lub wyższej
-#### Instalacja manualna:
+- Avarge annual salary for each recorded position in chosen city
+- Top 3 best paying companies in chosen city and how much percentage wise are they paying
+- Recommended position in each company based on highest salary
+## 2.Instalation
+#### Requierments:
+-Python version 3.9.13 or higher
+#### Manual instalation:
 
-1. Stworzyć katalog dla aplikacji
-2. Skopiować wszystkie pliki z repozytorium do utworzonego katalogu
-#### Instalacja z użyciem Git:
-W terminalu(cmd) wykonać polecenie
+1. Create directory for the application
+2. Copy all files from the repository to directory You created
+#### Instalation with Git:
+In command line execute :
 >git clone https://gitlab.portal.futurecollars.com/michal_lorenc/analiza-zarobkow.git
 
-Stworzy ono katalog analiza-zarobkow zawirający pliki aplikacji w aktualnej lokacji(Domyślnie: C/Users/Nazwa użytkownika)
+It will create a directory named analiza-zarobków in your active directory(default: C/Users/username)
 
-## 3.Uruchomienie
+## 3.Start-up
 
-1. Towrzenie środowiska wirtualnego dla aplikacji
-W terminalu(cmd) znajdując się w katalogu aplikacji wykonać polecenie
+1. Creating virtual environment
+In command line execute
 >  python -m venv env
-2. Aktywowanie srodowiska
+2. Activating virtual environment
 >  env/Scripts/activate
-3. Instalacja pakietów używanych przez aplikację do stowrzonego środowiska
+3. Instalation of packets and libraries used by app
 > pip install -r requirements.txt
-4. Uruchomienie serwera aplikacji. Domyślnie serwer uruchamiany jest pod adresem hosta lokalnego:  http://127.0.0.1:5000
-
+4. Booting server for app. By default server runs on local host adress: http://127.0.0.1:5000
 > flask run
