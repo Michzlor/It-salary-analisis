@@ -1,5 +1,5 @@
 # It salary analisis
-[a link](https://github.com/michzlor/It-salary-analisis/readmePL.md)
+[readme in PL](https://github.com/Michzlor/It-salary-analisis/blob/master/readmePL.md)
 
 ### 1.Summary
 Comparison of annual salaries on various IT positions in some major in India
