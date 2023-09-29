@@ -20,7 +20,7 @@ App returns:
 2. Copy all files from the repository to directory You created
 #### Instalation with Git:
 In command line execute :
->git clone https://gitlab.portal.futurecollars.com/michal_lorenc/analiza-zarobkow.git
+>git clone https://github.com/Michzlor/It-salary-analisis
 
 It will create a directory named analiza-zarobków in your active directory(default: C/Users/username)
 
