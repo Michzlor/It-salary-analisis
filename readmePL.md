@@ -20,7 +20,7 @@ Aplikacja zwraca:
 2. Skopiować wszystkie pliki z repozytorium do utworzonego katalogu
 #### Instalacja z użyciem Git:
 W terminalu(cmd) wykonać polecenie
->git clone https://gitlab.portal.futurecollars.com/michal_lorenc/analiza-zarobkow.git
+>git clone https://github.com/Michzlor/It-salary-analisis
 
 Stworzy ono katalog analiza-zarobkow zawirający pliki aplikacji w aktualnej lokacji(Domyślnie: C/Users/Nazwa użytkownika)
 
