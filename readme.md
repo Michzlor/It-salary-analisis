@@ -8,7 +8,6 @@ Dataset used for the app:
 https://www.kaggle.com/iamsouravbanerjee/analytics-industry-salaries-2022-india
 User picks a city - Bangalore, Pune, Hyderabad, New Delhi, Mumbai
 App returns:
-Aplikacja zwraca:
 - Avarge annual salary for each recorded position in chosen city
 - Top 3 best paying companies in chosen city and how much percentage wise are they paying
 - Recommended position in each company based on highest salary
